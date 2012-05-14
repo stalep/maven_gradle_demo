@@ -1,0 +1,26 @@
+apply plugin: 'ear'
+
+sourceCompatibility = 1.6
+version = '0.1-SNAPSHOT'
+
+repositories { 
+    mavenCentral() 
+}
+
+dependencies {
+    //following dependencies will become the ear modules and placed in the ear root
+    deploy project(path: ':web', configuration: 'archives')
+}
+
+ear {
+    appDirName 'src/main/app'  // use application metadata found in this folder
+    libDirName 'APP-INF/lib'  // put dependency libraries into APP-INF/lib inside the generated EAR;
+                                // also modify the generated deployment descriptor accordingly
+    deploymentDescriptor {  // custom entries for application.xml:
+        applicationName = "gradle-ejb-in-ear"
+        initializeInOrder = true
+        displayName = "gradle-ejb-in-ear"  // defaults to project.name
+        description = "Gradle Demo for EJB in EAR"  // defaults to project.description
+        webModule("web.war", "/gradle-ejb-in-ear")  // wouldn't deploy since my.war isn't a deploy depencency
+    }
+}

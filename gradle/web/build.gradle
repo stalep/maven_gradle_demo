@@ -1,0 +1,16 @@
+apply plugin: 'war'
+
+sourceCompatibility = 1.6
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile( project(':ejb') )
+    compile group: 'javax.enterprise', name: 'cdi-api', version: '1.1.EDR1.2', ext: 'jar'
+    compile group: 'javax', name: 'javaee-api', version: '6.0', ext: 'jar'
+}
+
+war { 
+  jar.enabled = false 
+} 
